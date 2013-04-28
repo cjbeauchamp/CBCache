@@ -7,7 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+enum {
+    CBCacheStatusInMemoryCache,
+    CBCacheStatusInFileCache,
+    CBCacheStatusNotCached
+};
+typedef NSUInteger CBCacheStatus;
+
+typedef void (^CBCacheCompletionBlock)(CBCacheStatus status, UIImage *image, NSError *error);
 
 @interface CBCache : NSObject
+
+@property (nonatomic, strong) NSString *cacheName;
+
++ (CBCache*)cacheWithName:(NSString*)name;
+
+- (void) retrieveFile:(NSURL*)fileURL withCompletion:(CBCacheCompletionBlock)complete;
 
 @end
