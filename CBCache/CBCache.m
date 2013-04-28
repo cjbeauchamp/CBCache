@@ -25,6 +25,60 @@
 
 @synthesize cacheName = _cacheName;
 
+- (unsigned long long) cacheDirectorySpaceUsed
+{
+    unsigned long long totalSpace = 0;
+    
+    __autoreleasing NSError *error = nil;
+    NSString *myPath = [self getCacheFilePath];
+    
+    // get the contents of our directory
+    for(NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:myPath error:&error]) {
+        
+        if([filename length] > 0) {
+            if([[filename substringToIndex:1] isEqualToString:@"."]) continue;
+
+            NSString *path = [myPath stringByAppendingPathComponent:filename];
+            
+            NSDictionary *dict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+            
+            if(dict != nil) {
+                NSNumber *fileSize = [dict objectForKey:NSFileSize];
+                totalSpace += fileSize.longLongValue;
+            }
+
+        }
+        
+    }
+    
+    return totalSpace;
+}
+
+- (unsigned long long) freeDiskSpace
+{
+    unsigned long long totalSpace = 0;
+    unsigned long long totalFreeSpace = 0;
+    
+    __autoreleasing NSError *error = nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
+    
+    if (dictionary) {
+        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];
+        NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+        totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
+        totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        NSLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", ((totalSpace/1024ll)/1024ll), ((totalFreeSpace/1024ll)/1024ll));
+    } else {
+        NSLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %d", [error domain], [error code]);
+    }
+
+    long long totalUsed = [self cacheDirectorySpaceUsed];
+    NSLog(@"TOTALUSED: %lld", totalUsed);
+    
+    return totalFreeSpace;
+}
+
 - (CBCache*)initWithName:(NSString*)name
 {
     self = [super init];
@@ -36,6 +90,8 @@
         _cacheQueue = dispatch_queue_create([cacheQueueName UTF8String], NULL);
         
         _cacheDownloadQueue = [[NSOperationQueue alloc] init];
+        
+        [self freeDiskSpace];
     }
     
     return self;
@@ -46,10 +102,8 @@
     return [[CBCache alloc] initWithName:name];
 }
 
-- (NSString*)getLocalFilePath:(NSURL*)fromURL
+- (NSString*) getCacheFilePath
 {
-    NSString *filename = [fromURL.absoluteString md5];
-    
     NSArray *myPathList = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *myPath = [myPathList objectAtIndex:0];
     myPath = [myPath stringByAppendingPathComponent:_cacheName];
@@ -59,10 +113,17 @@
                               withIntermediateDirectories:YES
                                                attributes:nil
                                                     error:nil];
+
+    return myPath;
+}
+
+- (NSString*)getLocalFilePath:(NSURL*)fromURL
+{
+    NSString *filename = [fromURL.absoluteString md5];
     
+    
+    NSString *myPath = [self getCacheFilePath];
     myPath = [myPath stringByAppendingPathComponent:filename];
-    
-    NSLog(@"Created path %@ from url %@", myPath, fromURL.absoluteString);
     
     return myPath;
 }
@@ -79,7 +140,7 @@
     return image;
 }
 
-- (void) writeImage:(NSData*)imageData toFileCache:(NSURL*)fileURL
+- (void) writeImageToFileCache:(NSData*)imageData usingURL:(NSURL*)fileURL
 {
     NSString *myPath = [self getLocalFilePath:fileURL];
     [imageData writeToFile:myPath atomically:TRUE];
@@ -91,6 +152,7 @@
 {
     
     // break out into another thread -- specific to this cache
+    // TODO: Allow separate threads for each url... how many is max efficiency?
     dispatch_async(_cacheQueue, ^(void) {
         
         // see if it's in the memory cache
@@ -129,7 +191,7 @@
                                                // should clean up/update the memory cache
                                                
                                                // save to file cache
-                                               [self writeImage:data toFileCache:response.URL];
+                                               [self writeImageToFileCache:data usingURL:response.URL];
                                            }
                                            
                                            // make the callback on the main thread
