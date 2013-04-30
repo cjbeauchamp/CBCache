@@ -101,6 +101,7 @@
 		CA4E4701172CD1DC000C023C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CAC3CFFD172F8C2600D8B142 /* Submodules */,
 				CA4E4702172CD1DC000C023C /* Foundation.framework */,
 				CA4E4711172CD1DD000C023C /* SenTestingKit.framework */,
 				CA4E4713172CD1DD000C023C /* UIKit.framework */,
@@ -145,6 +146,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CAC3CFFD172F8C2600D8B142 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Submodules;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,6 +163,7 @@
 				CA4E46FB172CD1DC000C023C /* Sources */,
 				CA4E46FC172CD1DC000C023C /* Frameworks */,
 				CA4E46FD172CD1DC000C023C /* CopyFiles */,
+				CAC3CFFC172F8A0B00D8B142 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -235,6 +244,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		CAC3CFFC172F8A0B00D8B142 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nKEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -403,6 +425,7 @@
 				CA4E4726172CD1DD000C023C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CA4E4727172CD1DD000C023C /* Build configuration list for PBXNativeTarget "CBCacheTests" */ = {
 			isa = XCConfigurationList;
@@ -411,6 +434,7 @@
 				CA4E4729172CD1DD000C023C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
