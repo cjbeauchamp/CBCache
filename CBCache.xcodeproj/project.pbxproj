@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA33066D172F9378002204D5 /* CBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CA33065F172F9378002204D5 /* CBDevice.m */; };
+		CA33066E172F9378002204D5 /* NSMutableArray+CBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA330662172F9378002204D5 /* NSMutableArray+CBExtensions.m */; };
+		CA33066F172F9378002204D5 /* NSString+CBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA330664172F9378002204D5 /* NSString+CBExtensions.m */; };
+		CA330670172F9378002204D5 /* UIView+CBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA330666172F9378002204D5 /* UIView+CBExtensions.m */; };
+		CA330671172F9378002204D5 /* CBLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = CA33066A172F9378002204D5 /* CBLoader.m */; };
+		CA330672172F9378002204D5 /* CBToast.m in Sources */ = {isa = PBXBuildFile; fileRef = CA33066C172F9378002204D5 /* CBToast.m */; };
+		CA330675172F93E1002204D5 /* UILabel+CBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA330674172F93E1002204D5 /* UILabel+CBExtensions.m */; };
 		CA4E4703172CD1DC000C023C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4E4702172CD1DC000C023C /* Foundation.framework */; };
 		CA4E4708172CD1DC000C023C /* CBCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA4E4707172CD1DC000C023C /* CBCache.h */; };
 		CA4E470A172CD1DC000C023C /* CBCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4E4709172CD1DC000C023C /* CBCache.m */; };
@@ -42,9 +49,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CA33065E172F9378002204D5 /* CBDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDevice.h; sourceTree = "<group>"; };
+		CA33065F172F9378002204D5 /* CBDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBDevice.m; sourceTree = "<group>"; };
+		CA330661172F9378002204D5 /* NSMutableArray+CBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+CBExtensions.h"; sourceTree = "<group>"; };
+		CA330662172F9378002204D5 /* NSMutableArray+CBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+CBExtensions.m"; sourceTree = "<group>"; };
+		CA330663172F9378002204D5 /* NSString+CBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CBExtensions.h"; sourceTree = "<group>"; };
+		CA330664172F9378002204D5 /* NSString+CBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CBExtensions.m"; sourceTree = "<group>"; };
+		CA330665172F9378002204D5 /* UIView+CBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CBExtensions.h"; sourceTree = "<group>"; };
+		CA330666172F9378002204D5 /* UIView+CBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CBExtensions.m"; sourceTree = "<group>"; };
+		CA330667172F9378002204D5 /* CBToolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBToolkit.h; sourceTree = "<group>"; };
+		CA330669172F9378002204D5 /* CBLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLoader.h; sourceTree = "<group>"; };
+		CA33066A172F9378002204D5 /* CBLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLoader.m; sourceTree = "<group>"; };
+		CA33066B172F9378002204D5 /* CBToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBToast.h; sourceTree = "<group>"; };
+		CA33066C172F9378002204D5 /* CBToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBToast.m; sourceTree = "<group>"; };
+		CA330673172F93E1002204D5 /* UILabel+CBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+CBExtensions.h"; sourceTree = "<group>"; };
+		CA330674172F93E1002204D5 /* UILabel+CBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+CBExtensions.m"; sourceTree = "<group>"; };
 		CA4E46FF172CD1DC000C023C /* libCBCache.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCBCache.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4E4702172CD1DC000C023C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		CA4E4706172CD1DC000C023C /* CBCache-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBCache-Prefix.pch"; sourceTree = "<group>"; };
 		CA4E4707172CD1DC000C023C /* CBCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBCache.h; sourceTree = "<group>"; };
 		CA4E4709172CD1DC000C023C /* CBCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBCache.m; sourceTree = "<group>"; };
 		CA4E4710172CD1DD000C023C /* CBCacheTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CBCacheTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +100,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA33065D172F9378002204D5 /* CBToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				CA33065E172F9378002204D5 /* CBDevice.h */,
+				CA33065F172F9378002204D5 /* CBDevice.m */,
+				CA330660172F9378002204D5 /* CBExtensions */,
+				CA330667172F9378002204D5 /* CBToolkit.h */,
+				CA330668172F9378002204D5 /* CBUI */,
+			);
+			name = CBToolkit;
+			path = CBToolkit/CBToolkit;
+			sourceTree = "<group>";
+		};
+		CA330660172F9378002204D5 /* CBExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				CA330661172F9378002204D5 /* NSMutableArray+CBExtensions.h */,
+				CA330662172F9378002204D5 /* NSMutableArray+CBExtensions.m */,
+				CA330663172F9378002204D5 /* NSString+CBExtensions.h */,
+				CA330664172F9378002204D5 /* NSString+CBExtensions.m */,
+				CA330665172F9378002204D5 /* UIView+CBExtensions.h */,
+				CA330666172F9378002204D5 /* UIView+CBExtensions.m */,
+				CA330673172F93E1002204D5 /* UILabel+CBExtensions.h */,
+				CA330674172F93E1002204D5 /* UILabel+CBExtensions.m */,
+			);
+			path = CBExtensions;
+			sourceTree = "<group>";
+		};
+		CA330668172F9378002204D5 /* CBUI */ = {
+			isa = PBXGroup;
+			children = (
+				CA330669172F9378002204D5 /* CBLoader.h */,
+				CA33066A172F9378002204D5 /* CBLoader.m */,
+				CA33066B172F9378002204D5 /* CBToast.h */,
+				CA33066C172F9378002204D5 /* CBToast.m */,
+			);
+			path = CBUI;
+			sourceTree = "<group>";
+		};
 		CA4E46F6172CD1DC000C023C = {
 			isa = PBXGroup;
 			children = (
@@ -114,17 +174,8 @@
 			children = (
 				CA4E4707172CD1DC000C023C /* CBCache.h */,
 				CA4E4709172CD1DC000C023C /* CBCache.m */,
-				CA4E4705172CD1DC000C023C /* Supporting Files */,
 			);
 			path = CBCache;
-			sourceTree = "<group>";
-		};
-		CA4E4705172CD1DC000C023C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CA4E4706172CD1DC000C023C /* CBCache-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		CA4E4719172CD1DD000C023C /* CBCacheTests */ = {
@@ -149,6 +200,7 @@
 		CAC3CFFD172F8C2600D8B142 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				CA33065D172F9378002204D5 /* CBToolkit */,
 			);
 			name = Submodules;
 			sourceTree = "<group>";
@@ -266,6 +318,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA4E470A172CD1DC000C023C /* CBCache.m in Sources */,
+				CA33066D172F9378002204D5 /* CBDevice.m in Sources */,
+				CA33066E172F9378002204D5 /* NSMutableArray+CBExtensions.m in Sources */,
+				CA33066F172F9378002204D5 /* NSString+CBExtensions.m in Sources */,
+				CA330670172F9378002204D5 /* UIView+CBExtensions.m in Sources */,
+				CA330671172F9378002204D5 /* CBLoader.m in Sources */,
+				CA330672172F9378002204D5 /* CBToast.m in Sources */,
+				CA330675172F93E1002204D5 /* UILabel+CBExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,8 +415,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/CBCache.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBCache/CBCache-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -368,8 +427,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/CBCache.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBCache/CBCache-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
