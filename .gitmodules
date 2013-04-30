@@ -1,0 +1,3 @@
+[submodule "CBToolkit"]
+	path = CBToolkit
+	url = https://github.com/cjbeauchamp/CBToolkit.git
