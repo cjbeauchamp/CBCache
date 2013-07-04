@@ -16,7 +16,7 @@ enum {
 };
 typedef NSUInteger CBCacheStatus;
 
-typedef void (^CBCacheCompletionBlock)(CBCacheStatus status, UIImage *image, NSError *error);
+typedef void (^CBCacheCompletionBlock)(CBCacheStatus status, NSData *data, NSError *error);
 
 @interface CBCache : NSObject
 

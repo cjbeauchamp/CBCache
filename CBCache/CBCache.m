@@ -121,29 +121,28 @@
 {
     NSString *filename = [fromURL.absoluteString md5];
     
-    
     NSString *myPath = [self getCacheFilePath];
     myPath = [myPath stringByAppendingPathComponent:filename];
     
     return myPath;
 }
 
-- (UIImage*) getImageFromFileCache:(NSURL*)url
+- (NSData*) getDataFromFileCache:(NSURL*)url
 {
-    UIImage *image = nil;
+    NSData *data = nil;
     NSString *myPath = [self getLocalFilePath:url];
     
     if([[NSFileManager defaultManager] fileExistsAtPath:myPath]) {
-        image = [UIImage imageWithContentsOfFile:myPath];
+        data = [NSData dataWithContentsOfFile:myPath];
     }
 
-    return image;
+    return data;
 }
 
-- (void) writeImageToFileCache:(NSData*)imageData usingURL:(NSURL*)fileURL
+- (void) writeDataToFileCache:(NSData*)data usingURL:(NSURL*)fileURL
 {
     NSString *myPath = [self getLocalFilePath:fileURL];
-    [imageData writeToFile:myPath atomically:TRUE];
+    [data writeToFile:myPath atomically:TRUE];
     
     // TODO: clean this up if it's over capacity
 }
@@ -156,17 +155,17 @@
     dispatch_async(_cacheQueue, ^(void) {
         
         // see if it's in the memory cache
-        __block UIImage *memoryImage = [_memoryCache objectForKey:fileURL.absoluteString];
-        if(memoryImage != nil) {
+        __block NSData *memoryData = [_memoryCache objectForKey:fileURL.absoluteString];
+        if(memoryData != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                complete(CBCacheStatusInMemoryCache, memoryImage, nil);
+                complete(CBCacheStatusInMemoryCache, memoryData, nil);
                 
                 // TODO: bump this to the top of the memory cache
             });
         } else {
             
             // if not, see if it's in the file cache
-            __block UIImage *fileImage = [self getImageFromFileCache:fileURL];
+            __block NSData *fileImage = [self getDataFromFileCache:fileURL];
             if(fileImage != nil) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     complete(CBCacheStatusInFileCache, fileImage, nil);
@@ -181,22 +180,19 @@
                 [NSURLConnection sendAsynchronousRequest:request
                                                    queue:_cacheDownloadQueue
                                        completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                                           
-                                           __block UIImage *img = nil;
-                                           
+                                                                                      
                                            if(error == nil) {
-                                               img = [UIImage imageWithData:data];
                                                
                                                // TODO: store this in the memory cache which
                                                // should clean up/update the memory cache
                                                
                                                // save to file cache
-                                               [self writeImageToFileCache:data usingURL:response.URL];
+                                               [self writeDataToFileCache:data usingURL:response.URL];
                                            }
                                            
                                            // make the callback on the main thread
                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                               complete(CBCacheStatusNotCached, img, error);
+                                               complete(CBCacheStatusNotCached, data, error);
                                            });
                                            
                                        }];
