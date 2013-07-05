@@ -90,6 +90,7 @@
         _cacheQueue = dispatch_queue_create([cacheQueueName UTF8String], NULL);
         
         _cacheDownloadQueue = [[NSOperationQueue alloc] init];
+//        _cacheDownloadQueue.maxConcurrentOperationCount = 10;
         
         [self freeDiskSpace];
     }
@@ -132,6 +133,8 @@
     NSData *data = nil;
     NSString *myPath = [self getLocalFilePath:url];
     
+    NSLog(@"Data from file: %@", myPath);
+    
     if([[NSFileManager defaultManager] fileExistsAtPath:myPath]) {
         data = [NSData dataWithContentsOfFile:myPath];
     }
@@ -160,6 +163,8 @@
 - (void) retrieveFile:(NSURL*)fileURL withCompletion:(CBCacheCompletionBlock)complete
 {
     
+    NSLog(@"Retrieved file: %@", fileURL);
+    
     // break out into another thread -- specific to this cache
     // TODO: Allow separate threads for each url... how many is max efficiency?
     dispatch_async(_cacheQueue, ^(void) {
@@ -168,8 +173,9 @@
         __block NSData *memoryData = [_memoryCache objectForKey:fileURL.absoluteString];
         if(memoryData != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                complete(CBCacheStatusInMemoryCache, memoryData, nil);
-                
+                if(complete) {
+                    complete(CBCacheStatusInMemoryCache, memoryData, nil);   
+                }
                 // TODO: bump this to the top of the memory cache
             });
         } else {
@@ -178,7 +184,9 @@
             __block NSData *fileImage = [self getDataFromFileCache:fileURL];
             if(fileImage != nil) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    complete(CBCacheStatusInFileCache, fileImage, nil);
+                    if(complete) {
+                        complete(CBCacheStatusInFileCache, fileImage, nil);
+                    }
                     
                     // TODO: put this in the top of the memory cache
                     
@@ -202,7 +210,9 @@
                                            
                                            // make the callback on the main thread
                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                               complete(CBCacheStatusNotCached, data, error);
+                                               if(complete) {
+                                                   complete(CBCacheStatusNotCached, data, error);                                                   
+                                               }
                                            });
                                            
                                        }];
