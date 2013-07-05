@@ -147,6 +147,16 @@
     // TODO: clean this up if it's over capacity
 }
 
+- (BOOL) writeData:(NSData*)data
+           toFile:(NSString*)filename {
+    NSString *myPath = [self getLocalFilePath:[NSURL URLWithString:filename]];
+    return [data writeToFile:myPath atomically:TRUE];
+}
+
+- (NSData*) dataFromFile:(NSString*)filename {
+    return [self getDataFromFileCache:[NSURL URLWithString:filename]];
+}
+
 - (void) retrieveFile:(NSURL*)fileURL withCompletion:(CBCacheCompletionBlock)complete
 {
     

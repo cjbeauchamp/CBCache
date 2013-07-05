@@ -24,6 +24,9 @@ typedef void (^CBCacheCompletionBlock)(CBCacheStatus status, NSData *data, NSErr
 
 + (CBCache*)cacheWithName:(NSString*)name;
 
+- (BOOL) writeData:(NSData*)data toFile:(NSString*)filename;
+- (NSData*) dataFromFile:(NSString*)filename;
+
 - (void) retrieveFile:(NSURL*)fileURL withCompletion:(CBCacheCompletionBlock)complete;
 
 @end
