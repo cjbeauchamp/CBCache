@@ -8,7 +8,7 @@
 
 #import "CBCache.h"
 
-#import "NSString+CBExtensions.h"
+#import "NSString+KTUtilities.h"
 
 @interface CBCache() {
     NSString *_cacheName;
@@ -68,13 +68,13 @@
         NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
         totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
         totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
-        CBLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", ((totalSpace/1024ll)/1024ll), ((totalFreeSpace/1024ll)/1024ll));
+        NSLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", ((totalSpace/1024ll)/1024ll), ((totalFreeSpace/1024ll)/1024ll));
     } else {
-        CBLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %d", [error domain], [error code]);
+        NSLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %d", [error domain], [error code]);
     }
 
     long long totalUsed = [self cacheDirectorySpaceUsed];
-    CBLog(@"TOTALUSED: %lld", totalUsed);
+    NSLog(@"TOTALUSED: %lld", totalUsed);
     
     return totalFreeSpace;
 }
@@ -133,7 +133,7 @@
     NSData *data = nil;
     NSString *myPath = [self getLocalFilePath:url];
     
-    CBLog(@"Data from file: %@", myPath);
+    NSLog(@"Data from file: %@", myPath);
     
     if([[NSFileManager defaultManager] fileExistsAtPath:myPath]) {
         data = [NSData dataWithContentsOfFile:myPath];
@@ -163,7 +163,7 @@
 - (void) retrieveFile:(NSURL*)fileURL withCompletion:(CBCacheCompletionBlock)complete
 {
     
-    CBLog(@"Retrieved file: %@", fileURL);
+    NSLog(@"Retrieved file: %@", fileURL);
     
     // break out into another thread -- specific to this cache
     // TODO: Allow separate threads for each url... how many is max efficiency?
